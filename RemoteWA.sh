@@ -26,14 +26,32 @@ menuSpawn()
 	echo -e "${yellowColour}3)${endColour} ${grayColour}Enviar mensaje a destinatario${endColour}" && sleep 0.1
 	echo -e "${yellowColour}4)${endColour} ${grayColour}Visualizar mensajes entrantes${endColour}" && sleep 0.1
 	echo -e "${greenColour}-------------------------------------${endColour}" && sleep 0.4
-	echo -ne "${blueColour}Selecciona una opción:${endColour}${greenColour} "
-	read menu_option && echo -e "${endColour}"
+	tput cnorm && echo -ne "${blueColour}Selecciona una opción:${endColour}${greenColour} "
+	read menu_option && echo -e "${endColour}" && tput civis
+
+}
+
+obtainSession()
+{
+	clear && tput cnorm && echo -ne "${yellowColour}Introduce el código recibido [XXX-XXX]:${endColour}${blueColour} "
+	read register_code && echo -e "${endColour}" && tput civis
+	echo -e "${grayColour}Obteniendo sesión...${endColour}\n"
+
+	yowsup-cli registration --register $register_code --phone 34${mobile_number} --cc 34 --mcc $mcc --mnc $mnc -E android > registrationResults
+
+	pw=$(cat registrationResults | grep "^pw" | awk '{print $2}') && rm registrationResults 2>/dev/null
+
+	echo -e "${grayColour}Generando fichero de configuración...${endColour}\n" && sleep 2
+
+	echo "cc=34" >> whatsapp_config.txt
+	echo "phone=$mobile_number" >> whatsapp_config.txt
+	echo "password=$pw" >> whatsapp_config.txt
 
 }
 
 sendCode()
 {
-	clear && echo -e "${yellowColour}Selecciona una operada [$endColour${redColour}La opción 4 funciona para todos los casos${endColour}${yellowColour}]:${endColour}"
+	clear && echo -e "${yellowColour}Selecciona una operada (España) [$endColour${redColour}La opción 4 funciona para todos los casos${endColour}${yellowColour}]:${endColour}"
 	echo -e "$greenColour-------------------------------------------------------------------------------$endColour"
 	echo -e "${redColour}1)${endColour}$blueColour  Operator: Vodafone Spain | Brand: Vodafone$endColour" && sleep 0.02
         echo -e "${redColour}2)$endColour$blueColour  Operator: France Telecom España SA | Brand: Orange$endColour" && sleep 0.02
@@ -57,9 +75,9 @@ sendCode()
 	mnc=$(cat operators | grep "^$operator_option" | awk '{print $3}')
 
 	echo -ne "${yellowColour}Número de teléfono:${endColour}${blueColour} "
-	read mobile_number && echo -e "${endColour}" && echo -e "${grayColour}Enviando SMS...${endColour}"
+	read mobile_number && echo -e "${endColour}" && echo -e "${grayColour}Enviando SMS...${endColour}\n"
 	
-	yowsup-cli registration --requestcode sms --phone 34${mobile_number} --cc 34 --mcc $mcc --mnc $mnc -E android > /dev/null 2>&1 && clear
+	yowsup-cli registration --requestcode sms --phone 34${mobile_number} --cc 34 --mcc $mcc --mnc $mnc -E android && sleep 5 && clear
 }
 
 if [ "$(id -u)" -eq "0" ]; then
