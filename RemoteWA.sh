@@ -49,9 +49,24 @@ obtainSession()
 
 }
 
+sendMessage()
+{
+	clear && echo -ne "${yellowColour}Número del destinatario:$endColour "
+	read destination_number
+	echo -ne "\n${yellowColour}Mensaje a enviar:$endColour "
+	read -e message && echo
+	
+	if [ -f whatsapp_config.txt ]; then
+		yowsup-cli demos whatsapp_config.txt --send 34${destination_number} "$message" && clear
+	else
+		echo -e "${redColour}Es necesario registrar un número remitente antes de enviar el mensaje${endColour}" && sleep 3 && clear
+	fi
+
+}
+
 sendCode()
 {
-	clear && echo -e "${yellowColour}Selecciona una operada (España) [$endColour${redColour}La opción 4 funciona para todos los casos${endColour}${yellowColour}]:${endColour}"
+	clear && echo -e "${yellowColour}Selecciona una operadora (España) [$endColour${redColour}La opción 4 funciona para todos los casos${endColour}${yellowColour}]:${endColour}"
 	echo -e "$greenColour-------------------------------------------------------------------------------$endColour"
 	echo -e "${redColour}1)${endColour}$blueColour  Operator: Vodafone Spain | Brand: Vodafone$endColour" && sleep 0.02
         echo -e "${redColour}2)$endColour$blueColour  Operator: France Telecom España SA | Brand: Orange$endColour" && sleep 0.02
