@@ -1,5 +1,7 @@
 # RemoteWA
 
+![RemoteWA](images/RemoteWA.jpg)
+
 **RemoteWA** se trata de un programa construido en el lenguaje de programación _Bash_, ideal para ~~robar~~ conseguir una cómoda sesión interactiva de WhatsApp desde nuestra terminal Linux.
 
 Consideraciones:
