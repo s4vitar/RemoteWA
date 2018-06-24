@@ -1,4 +1,6 @@
 #!/bin/bash
+# Programa hecho por Marcelo Vázquez (aka s4vitar)
+# No me hago responsable del mal uso que se pueda hacer de este programa, pues pretende ser educativo, no malicioso.
 
 #Colours
 greenColour="\e[0;32m\033[1m"
