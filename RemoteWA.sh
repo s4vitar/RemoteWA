@@ -25,6 +25,7 @@ menuSpawn()
 	echo -e "${yellowColour}2)${endColour} ${grayColour}Obtener sesión remota${endColour}" && sleep 0.1
 	echo -e "${yellowColour}3)${endColour} ${grayColour}Enviar mensaje a destinatario${endColour}" && sleep 0.1
 	echo -e "${yellowColour}4)${endColour} ${grayColour}Visualizar mensajes entrantes${endColour}" && sleep 0.1
+	echo -e "${yellowColour}5)${endColour} ${grayColour}Eliminar fichero de configuración${endColour}" && sleep 0.1
 	echo -e "${greenColour}-------------------------------------${endColour}" && sleep 0.4
 	tput cnorm && echo -ne "${blueColour}Selecciona una opción:${endColour}${greenColour} "
 	read menu_option && echo -e "${endColour}" && tput civis
@@ -69,10 +70,17 @@ seeMessage()
 	clear && echo -ne "${yellowColour}Leyendo mensajes entrantes...:$endColour" && sleep 3
 
 	if [ -f whatsapp_config.txt ]; then
-		yowsup-cli demos whatsapp_config.txt --echo 
+		yowsup-cli demos whatsapp_config.txt --echo && clear
 	else
 		echo -e "${redColour}Es necesario registrar un número remitente antes de enviar el mensaje${endColour}" && sleep 3 && clear
 	fi
+}
+
+deleteCF()
+{
+	clear && echo -ne "${yellowColour}Borrando fichero de configuración...${endColour}" && sleep 3
+
+	rm -r whatsapp_config.txt 2>/dev/null && clear
 }
 
 sendCode()
@@ -125,6 +133,9 @@ if [ "$(id -u)" -eq "0" ]; then
 			   ;;
 
 			4) seeMessage
+			   ;;
+
+			5) deleteCF
 			   ;;
 		esac
 	done
