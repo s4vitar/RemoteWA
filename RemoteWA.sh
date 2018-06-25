@@ -64,6 +64,17 @@ sendMessage()
 
 }
 
+seeMessage()
+{
+	clear && echo -ne "${yellowColour}Leyendo mensajes entrantes...:$endColour" && sleep 3
+
+	if [ -f whatsapp_config.txt ]; then
+		yowsup-cli demos whatsapp_config.txt --echo 
+	else
+		echo -e "${redColour}Es necesario registrar un número remitente antes de enviar el mensaje${endColour}" && sleep 3 && clear
+	fi
+}
+
 sendCode()
 {
 	clear && echo -e "${yellowColour}Selecciona una operadora (España) [$endColour${redColour}La opción 4 funciona para todos los casos${endColour}${yellowColour}]:${endColour}"
