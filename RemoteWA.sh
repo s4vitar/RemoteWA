@@ -46,7 +46,7 @@ obtainSession()
 	echo -e "${grayColour}Generando fichero de configuración...${endColour}\n" && sleep 2
 
 	echo "cc=34" >> whatsapp_config.txt
-	echo "phone=$mobile_number" >> whatsapp_config.txt
+	echo "phone=34$mobile_number" >> whatsapp_config.txt
 	echo "password=$pw" >> whatsapp_config.txt
 
 }
@@ -59,7 +59,7 @@ sendMessage()
 	read -e message && echo
 	
 	if [ -f whatsapp_config.txt ]; then
-		yowsup-cli demos whatsapp_config.txt --send 34${destination_number} "$message" && clear
+		yowsup-cli demos --config whatsapp_config.txt --send 34${destination_number} "$message" && clear
 	else
 		echo -e "${redColour}Es necesario registrar un número remitente antes de enviar el mensaje${endColour}" && sleep 3 && clear
 	fi
@@ -71,7 +71,7 @@ seeMessage()
 	clear && echo -ne "${yellowColour}Leyendo mensajes entrantes...$endColour" && sleep 3
 
 	if [ -f whatsapp_config.txt ]; then
-		yowsup-cli demos whatsapp_config.txt --echo && clear
+		yowsup-cli demos --config whatsapp_config.txt --echo && clear
 	else
 		echo -e "\n\n${redColour}Es necesario registrar un número remitente antes de enviar el mensaje${endColour}" && sleep 3 && clear
 	fi
