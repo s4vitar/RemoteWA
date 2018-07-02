@@ -14,3 +14,5 @@ Operaciones permitidas:
 
 * Recibir mensajes, siendo capaces de visualizar los mismos así como el número asociado.
 * Enviar mensajes, siendo capaces de seleccionar el número de teléfono al cual nos queremos dirigir.
+
+**Importante:** Es necesario tener instalado Yowsup para el correcto funcionamiento del programa.
