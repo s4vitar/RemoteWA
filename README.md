@@ -1,4 +1,4 @@
-# RemoteWA
+# RemoteWA [NO LONGER SUPORTED]
 
 ![RemoteWA](images/RemoteWA.jpg)
 
